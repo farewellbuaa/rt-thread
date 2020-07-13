@@ -106,9 +106,20 @@
 #define RT_SFUD_USING_SFDP
 #define RT_SFUD_USING_FLASH_INFO_TABLE
 #define RT_SFUD_SPI_MAX_HZ 50000000
+#define RT_USING_AUDIO
+#define RT_AUDIO_REPLAY_MP_BLOCK_SIZE 4096
+#define RT_AUDIO_REPLAY_MP_BLOCK_COUNT 2
+#define RT_AUDIO_RECORD_PIPE_SIZE 2048
 
 /* Using USB */
 
+#define RT_USING_USB_DEVICE
+#define RT_USBD_THREAD_STACK_SZ 4096
+#define USB_VENDOR_ID 0x0FFE
+#define USB_PRODUCT_ID 0x0001
+#define _RT_USB_DEVICE_MSTORAGE
+#define RT_USB_DEVICE_MSTORAGE
+#define RT_USB_MSTORAGE_DISK_NAME "flash0"
 
 /* POSIX layer and C standard library */
 
@@ -169,6 +180,7 @@
 /* peripheral libraries and drivers */
 
 #define BSP_USING_SPI1
+#define BSP_USING_SPI2
 
 /* miscellaneous packages */
 
@@ -185,6 +197,7 @@
 /* Onboard Peripheral Drivers */
 
 #define BSP_USING_SPI_FLASH
+#define BSP_USING_PCM1770
 
 /* On-chip Peripheral Drivers */
 
@@ -192,6 +205,7 @@
 #define BSP_USING_UART
 #define BSP_USING_UART1
 #define BSP_USING_SPI
+#define BSP_USING_USBD
 
 /* Board extended module Drivers */
 

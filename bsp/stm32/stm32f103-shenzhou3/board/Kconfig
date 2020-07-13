@@ -16,6 +16,13 @@ menu "Onboard Peripheral Drivers"
         select RT_USING_SFUD
         select RT_SFUD_USING_SFDP
         default n
+		
+	config BSP_USING_PCM1770
+        bool "Enable audio device (PCM1770 spi2)"
+		select BSP_USING_SPI
+        select BSP_USING_SPI2
+		select RT_USING_AUDIO
+        default n
 
 endmenu
 
@@ -102,12 +109,17 @@ menu "On-chip Peripheral Drivers"
                 default n
         endif
 		
+	config BSP_USING_USBD
+        bool "Enable USBD"
+		select RT_USING_USB_DEVICE
+        default n
+		
     source "../libraries/HAL_Drivers/Kconfig"
        
 endmenu
 
 menu "Board extended module Drivers"
-
+	
 endmenu
 
 endmenu

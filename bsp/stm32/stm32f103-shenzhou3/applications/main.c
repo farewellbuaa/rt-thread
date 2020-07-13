@@ -15,11 +15,17 @@
 /* defined the LED0 pin: PF6 */
 #define LED0_PIN    GET_PIN(F, 6)
 
+/* defined the USB_EN pin: PG11 */
+#define USB_EN_PIN    GET_PIN(G, 11)
+
 int main(void)
 {
     int count = 1;
     /* set LED0 pin mode to output */
     rt_pin_mode(LED0_PIN, PIN_MODE_OUTPUT);
+	
+	rt_pin_mode(USB_EN_PIN, PIN_MODE_OUTPUT);
+	rt_pin_write(USB_EN_PIN, PIN_HIGH);
 	
     while (count++)
     {
