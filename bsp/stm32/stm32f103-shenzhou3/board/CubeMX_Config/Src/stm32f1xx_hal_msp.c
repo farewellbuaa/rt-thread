@@ -24,6 +24,7 @@
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
+extern DMA_HandleTypeDef hdma_spi3_tx;
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN TD */
@@ -163,13 +164,20 @@ void HAL_I2S_MspInit(I2S_HandleTypeDef* hi2s)
     /* Peripheral clock enable */
     __HAL_RCC_SPI3_CLK_ENABLE();
   
+    __HAL_RCC_GPIOC_CLK_ENABLE();
     __HAL_RCC_GPIOA_CLK_ENABLE();
     __HAL_RCC_GPIOB_CLK_ENABLE();
     /**I2S3 GPIO Configuration    
+    PC7     ------> I2S3_MCK
     PA15     ------> I2S3_WS
     PB3     ------> I2S3_CK
     PB5     ------> I2S3_SD 
     */
+    GPIO_InitStruct.Pin = GPIO_PIN_7;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
     GPIO_InitStruct.Pin = GPIO_PIN_15;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -179,6 +187,9 @@ void HAL_I2S_MspInit(I2S_HandleTypeDef* hi2s)
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+    /* I2S3 DMA Init */
+    /* SPI3_TX Init */
 
   /* USER CODE BEGIN SPI3_MspInit 1 */
 
@@ -204,14 +215,19 @@ void HAL_I2S_MspDeInit(I2S_HandleTypeDef* hi2s)
     __HAL_RCC_SPI3_CLK_DISABLE();
   
     /**I2S3 GPIO Configuration    
+    PC7     ------> I2S3_MCK
     PA15     ------> I2S3_WS
     PB3     ------> I2S3_CK
     PB5     ------> I2S3_SD 
     */
+    HAL_GPIO_DeInit(GPIOC, GPIO_PIN_7);
+
     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_15);
 
     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_3|GPIO_PIN_5);
 
+    /* I2S3 DMA DeInit */
+    HAL_DMA_DeInit(hi2s->hdmatx);
   /* USER CODE BEGIN SPI3_MspDeInit 1 */
 
   /* USER CODE END SPI3_MspDeInit 1 */
